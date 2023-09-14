@@ -1,0 +1,26 @@
+ubuntu@ip-172-31-32-42:~/terraform-practise$ cat main.tf 
+resource "local_file" "batch-4-File"{
+         filename = "/home/ubuntu/terraform-practise/demo.txt"
+          content= "this is file created with terraform"
+}
+provider "docker" {}
+
+
+resource "docker_image" "nginx" {
+        name = "nginx:latest"
+        keep_locally = false
+}
+
+resource "docker_container" "nginx-ctr" {
+        name = "my-nginx-container"
+        image = docker_image.nginx.name
+
+        ports{
+         internal = 80
+         external = 80
+}
+
+
+
+
+}
